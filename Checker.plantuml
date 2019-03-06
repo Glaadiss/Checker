@@ -15,7 +15,19 @@ title __CHECKER's Class Diagram__\n
   
 
   package  {
+    class Input {
+    }
+  }
+  
+
+  package  {
     class Main {
+    }
+  }
+  
+
+  package  {
+    class MoveException {
     }
   }
   
@@ -27,14 +39,39 @@ title __CHECKER's Class Diagram__\n
   
 
   package  {
+    class PawnValidator {
+    }
+  }
+  
+
+  package  {
     class PawnsManager {
     }
   }
   
 
+  package  {
+    class Point {
+    }
+  }
+  
+
+  package  {
+    class Printer {
+    }
+  }
+  
+
+  Checker o-- PawnsManager : pawnsManager
+  Checker o-- Printer : printer
+  Checker o-- Input : input
+  Input o-- PawnsManager : pawnsManager
+  Pawn o-- PawnValidator : validator
+  Pawn o-- Point : point
   Pawn o-- PLAYER : player
   PawnsManager o-- PLAYER : currentPlayer
   PawnsManager o-- Pawn : currentPawn
+  Printer o-- PawnsManager : pawnsManager
 
 
 right footer

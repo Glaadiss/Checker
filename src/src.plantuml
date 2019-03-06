@@ -4,67 +4,30 @@ title __SRC's Class Diagram__\n
 
   package  {
     class Checker {
-        {static} + FIRST : PLAYER
-        {static} + SECOND : PLAYER
-        {static} + rows : int
-        {static} - X : int
-        {static} - Y : int
-        {static} + currentPlayer : PLAYER
-        {static} + scanner : Scanner
-        {static} - boardDraw : PLAYER[][]
-        {static} - pawnsManager : PawnsManager
-        {static} + generatePawns()
-        {static} + init()
-        {static} - getNumberFromUser()
-        {static} - askPlayerForCordinates()
-        {static} - askPlayerForPointer()
-        {static} - askPlayerForMove()
-        {static} - getPawnsNumber()
-        {static} - isFinish()
-        {static} + gameLoop()
-        {static} + printBoard()
-        {static} + printField()
+        - generatePawns()
+        + Checker()
+        - getPawnsNumber()
+        - isFinish()
+        - gameLoop()
     }
   }
   
 
   package  {
     class Constants {
-        {static} + ENTER_X : String
-        {static} + ENTER_Y : String
-        {static} + WHOSE_TURN : String
-        {static} + ASK_PAWN : String
-        {static} + ASK_PAWN_ERROR : String
-        {static} + ASK_MOVE : String
-        {static} + ASK_MOVE_ERROR : String
-        {static} + HEADER_NUMBERS : String
-        {static} + DIVIDER : String
-    }
-  }
-  
-
-  package  {
-    class Main {
-        {static} + main()
-    }
-  }
-  
-
-  package  {
-    class Pawn {
-        - x : int
-        - y : int
-        + Pawn()
-        + move()
-        - isNoMovement()
-        - isNotDiagonally()
-        - isToLongJump()
-        + isJumpByTwo()
-        + getX()
-        + getY()
-        + getPlayer()
-        + setX()
-        + setY()
+        {static} - FIRST : PLAYER
+        {static} - SECOND : PLAYER
+        {static} ~ ROWS : int
+        {static} ~ ENTER_X : String
+        {static} ~ ENTER_Y : String
+        {static} ~ WHOSE_TURN : String
+        {static} ~ ASK_PAWN : String
+        {static} ~ ASK_PAWN_ERROR : String
+        {static} ~ ASK_MOVE : String
+        {static} ~ ASK_MOVE_ERROR : String
+        {static} ~ HEADER_NUMBERS : String
+        {static} ~ DIVIDER : String
+        {static} ~ boardDraw : PLAYER[][]
     }
   }
   
@@ -78,23 +41,101 @@ title __SRC's Class Diagram__\n
   
 
   package  {
-    class PawnsManager {
-        - pawns : List<Pawn>
-        + getPawns()
-        + add()
-        + find()
-        + setCurrentPlayer()
-        + choosePawn()
-        - removeEnemyPawnBetween()
-        + movePawn()
+    class Input {
+        {static} - X : int
+        {static} - Y : int
+        {static} - scanner : Scanner
+        ~ Input()
+        {static} - getNumberFromUser()
+        {static} - askPlayerForCordinates()
+        ~ askPlayerForPointer()
+        ~ askPlayerForMove()
     }
   }
   
 
+  package  {
+    class Main {
+        {static} + main()
+    }
+  }
+  
+
+  package  {
+    class MoveException {
+        ~ MoveException()
+    }
+  }
+  
+
+  package  {
+    class Pawn {
+        + Pawn()
+        ~ move()
+        ~ getPlayer()
+        ~ getPoint()
+    }
+  }
+  
+
+  package  {
+    class PawnValidator {
+        ~ validate()
+    }
+  }
+  
+
+  package  {
+    class PawnsManager {
+        - pawns : List<Pawn>
+        ~ getPawns()
+        ~ add()
+        ~ find()
+        ~ setCurrentPlayer()
+        ~ choosePawn()
+        ~ removeEnemyPawnBetween()
+        ~ movePawn()
+    }
+  }
+  
+
+  package  {
+    class Point {
+        - x : int
+        - y : int
+        ~ Point()
+        - getX()
+        - getY()
+        ~ isNotOnBoard()
+        ~ equals()
+        ~ isToLongJump()
+        ~ isJumpByTwo()
+        ~ isDiagonalMove()
+        ~ getPointBetweenJump()
+    }
+  }
+  
+
+  package  {
+    class Printer {
+        ~ Printer()
+        ~ printBoard()
+        - printField()
+    }
+  }
+  
+
+  Checker o-- PawnsManager : pawnsManager
+  Checker o-- Printer : printer
+  Checker o-- Input : input
+  Constants +-down- PLAYER
+  Input o-- PawnsManager : pawnsManager
+  Pawn o-- PawnValidator : validator
+  Pawn o-- Point : point
   Pawn o-- PLAYER : player
-  Pawn +-down- PLAYER
   PawnsManager o-- PLAYER : currentPlayer
   PawnsManager o-- Pawn : currentPawn
+  Printer o-- PawnsManager : pawnsManager
 
 
 right footer

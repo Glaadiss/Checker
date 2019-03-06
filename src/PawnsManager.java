@@ -28,7 +28,7 @@ class PawnsManager{
                 .stream()
                 .filter(e -> e.getPoint().equals(point))
                 .findFirst();
-        return pawn.isPresent() ? pawn.get() : null;
+        return pawn.orElse(null);
 
     }
 
@@ -45,7 +45,7 @@ class PawnsManager{
     }
 
 
-    private boolean removeEnemyPawnBetween(Point point){
+    boolean removeEnemyPawnBetween(Point point){
         Pawn enemyPawn = find(currentPawn.getPoint().getPointBetweenJump(point));
         if(enemyPawn == null || enemyPawn.getPlayer() == currentPlayer) {
             return false;

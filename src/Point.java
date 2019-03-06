@@ -29,7 +29,7 @@ class Point {
     }
 
     boolean isToLongJump(Point pointTo){
-        return Math.abs(x - pointTo.x) > 2;
+        return Math.abs(x - pointTo.x) > 2 || Math.abs(y - pointTo.y) > 2;
     }
 
     boolean isJumpByTwo(Point pointTo) {
@@ -41,8 +41,8 @@ class Point {
     }
 
     Point getPointBetweenJump(Point point){
-        int enemyX = x < point.getX() ? x - 1 : x + 1;
-        int enemyY = y < point.getY() ? y - 1 : y + 1;
+        int enemyX = x > point.getX() ? x - 1 : x + 1;
+        int enemyY = y > point.getY() ? y - 1 : y + 1;
         return new Point(enemyX, enemyY);
     }
 }
